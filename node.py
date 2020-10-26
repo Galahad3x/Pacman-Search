@@ -12,3 +12,6 @@ class Node:
             curr = curr.parent
         return list(reversed(path))
 
+    def __eq__(self, other):
+        return self.state == other.state
+
