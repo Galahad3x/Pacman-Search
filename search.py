@@ -191,11 +191,19 @@ def aStarSearch(problem, heuristic=nullHeuristic): # Asumir que esta en grafo
 		for state, action, cost in problem.getSuccessors(n.state):
 			ns = Node(state, n, action, n.cost + cost)
 			if ns.state not in generated:
-				fringe.push(ns, ns.cost + heuristic(ns.state, problem))
+				# fringe.push(ns, ns.cost + heuristic(ns.state, problem))
+				path_max_fn = n.cost
+				path_max_gnhn = ns.cost + heuristic(ns.state, problem)
+				path_max = max(path_max_fn, path_max_gnhn)
+				fringe.push(ns, path_max)
 				generated[ns.state] = [ns, 'f']
 			elif ns.cost < generated[ns.state][0].cost:
 				# fringe.update(ns, ns.cost)
-				fringe.push(ns, ns.cost + heuristic(ns.state, problem))
+				path_max_fn = n.cost
+				path_max_gnhn = ns.cost + heuristic(ns.state, problem)
+				path_max = max(path_max_fn, path_max_gnhn)
+				fringe.push(ns, path_max)
+				# fringe.push(ns, ns.cost + heuristic(ns.state, problem))
 				generated[ns.state] = [ns, 'f']
 
 
