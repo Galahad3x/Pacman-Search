@@ -302,7 +302,6 @@ class CornersProblem(search.SearchProblem):
 		self._expanded = 0  # DO NOT CHANGE; Number of search nodes expanded
 		# Please add any code here which you would like to use
 		# in initializing the problem
-		"*** YOUR CODE HERE ***"
 
 	def getStartState(self):
 		"""
@@ -488,8 +487,17 @@ def foodHeuristic(state, problem):
 	problem.heuristicInfo['wallCount']
 	"""
 	position, foodGrid = state
-	"*** YOUR CODE HERE ***"
-	return 0
+	distance = 9999
+
+	for x, line in enumerate(foodGrid):
+		for y in line:
+			if line[y]:
+				xy1 = position
+				xy2 = x,y
+				val = abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+				if val < distance:
+					distance = val
+	return distance
 
 
 class ClosestDotSearchAgent(SearchAgent):
