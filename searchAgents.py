@@ -290,7 +290,12 @@ class CornersProblem(search.SearchProblem):
 		self.walls = startingGameState.getWalls()
 		self.startingPosition = startingGameState.getPacmanPosition()
 		top, right = self.walls.height - 2, self.walls.width - 2
-		self.corners = ((1, 1), (1, top), (right, 1), (right, top))
+		corners = ((1, 1), (1, top), (right, 1), (right, top))
+		self.corners = []
+		for corn in corners:
+			if corn != self.startingPosition:
+				self.corners.append(corn)
+		self.corners = tuple(self.corners)
 		for corner in self.corners:
 			if not startingGameState.hasFood(*corner):
 				print 'Warning: no food in corner ' + str(corner)
@@ -375,11 +380,15 @@ def cornersHeuristic(state, problem):
 	shortest path from the state to a goal of the problem; i.e.  it should be
 	admissible (as well as consistent).
 	"""
-	corners = problem.corners  # These are the corner coordinates
-	walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
-
-	"*** YOUR CODE HERE ***"
-	return 0  # Default to trivial solution
+	# corners = problem.corners  # These are the corner coordinates
+	# walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
+	position, corners = state
+	total = 0
+	for corner in corners:  # Corners no visitats
+		xy1 = position
+		xy2 = corner
+		total += abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+	return total
 
 
 class AStarCornersAgent(SearchAgent):

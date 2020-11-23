@@ -185,7 +185,7 @@ def aStarSearch(problem, heuristic=nullHeuristic): # Asumir que esta en grafo
 		if problem.isGoalState(n.state):
 			print("Path: ", n.total_path())
 			return n.total_path()
-		if generated[n.state][1] == 'E':  # Descartar els que ja estan expandits
+		if generated[n.state][1] == 'e':  # Descartar els que ja estan expandits
 			continue
 		generated[n.state] = [n, 'e']
 		for state, action, cost in problem.getSuccessors(n.state):
