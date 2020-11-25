@@ -300,8 +300,9 @@ class CornersProblem(search.SearchProblem):
 			if not startingGameState.hasFood(*corner):
 				print 'Warning: no food in corner ' + str(corner)
 		self._expanded = 0  # DO NOT CHANGE; Number of search nodes expanded
-		# Please add any code here which you would like to use
-		# in initializing the problem
+
+	# Please add any code here which you would like to use
+	# in initializing the problem
 
 	def getStartState(self):
 		"""
@@ -493,8 +494,8 @@ def foodHeuristic(state, problem):
 		for y in line:
 			if line[y]:
 				xy1 = position
-				xy2 = x,y
-				val = abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+				xy2 = x, y
+				val = util.manhattanDistance(xy1, xy2)
 				if val < distance:
 					distance = val
 	return distance
@@ -506,7 +507,7 @@ class ClosestDotSearchAgent(SearchAgent):
 	def registerInitialState(self, state):
 		self.actions = []
 		currentState = state
-		while (currentState.getFood().count() > 0):
+		while currentState.getFood().count() > 0:
 			nextPathSegment = self.findPathToClosestDot(currentState)  # The missing piece
 			self.actions += nextPathSegment
 			for action in nextPathSegment:
@@ -524,13 +525,9 @@ class ClosestDotSearchAgent(SearchAgent):
 		gameState.
 		"""
 		# Here are some useful elements of the startState
-		startPosition = gameState.getPacmanPosition()
-		food = gameState.getFood()
-		walls = gameState.getWalls()
 		problem = AnyFoodSearchProblem(gameState)
 
-		"*** YOUR CODE HERE ***"
-		util.raiseNotDefined()
+		return search.breadthFirstSearch(problem)
 
 
 class AnyFoodSearchProblem(PositionSearchProblem):
@@ -566,8 +563,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
 		"""
 		x, y = state
 
-		"*** YOUR CODE HERE ***"
-		util.raiseNotDefined()
+		return self.food[x][y]
 
 
 def mazeDistance(point1, point2, gameState):

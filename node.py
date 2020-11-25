@@ -4,10 +4,11 @@ class Node:
         self.parent = _parent
         self.action = _action
         self.cost = _cost
+
     def total_path(self):
         path = []
         curr = self
-        while curr.parent != None:
+        while curr.parent is not None:
             path.append(curr.action)
             curr = curr.parent
         return list(reversed(path))
